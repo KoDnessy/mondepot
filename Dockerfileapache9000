@@ -1,0 +1,15 @@
+
+
+
+FROM debian
+MAINTAINER rachou
+
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get -y update && apt-get -y upgrade && apt-get -y install apache2 && apt-get -y install vim
+VOLUME /html:/var/www/html
+ADD /html/000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD /html/ports.conf /etc/apache2/ports.conf
+expose 80 443 9000
+
+
+cmd ["apache2ctl","-D","FOREGROUND"] 
+#cmd ["bash"]
